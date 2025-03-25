@@ -13,17 +13,21 @@ local function createFlashlight()
     part.CanCollide = false
     part.Transparency = 1  -- Make it invisible
 
-    -- Create the point light under the part
-    local pointLight = Instance.new("PointLight")
-    pointLight.Parent = part
-    pointLight.Brightness = 5
-    pointLight.Range = 15
-    pointLight.Color = Color3.fromRGB(255, 255, 255)
+    -- Create the spotlight under the part
+    local spotlight = Instance.new("SpotLight")
+    spotlight.Parent = part
+    spotlight.Brightness = 10
+    spotlight.Range = 50
+    spotlight.Angle = 50
+    spotlight.Color = Color3.fromRGB(255, 255, 255)
+    spotlight.ConeHeight = 30
+    spotlight.ConeRadius = 10
 
-    -- Update the part and point light position every frame to follow the camera
+    -- Update the part and spotlight position every frame to follow the camera
     local function moveFlashlight()
         part.Position = camera.CFrame.Position - Vector3.new(0, 2, 0)  -- Keep part below camera
-        pointLight.Position = part.Position  -- Keep the point light at the same position as the part
+        spotlight.Position = part.Position  -- Keep the spotlight at the same position as the part
+        spotlight.CFrame = CFrame.new(part.Position, camera.CFrame.Position)  -- Spotlight direction towards the camera
     end
     
     RunService.Heartbeat:Connect(moveFlashlight)
