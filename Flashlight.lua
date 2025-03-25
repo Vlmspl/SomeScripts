@@ -16,8 +16,8 @@ local function createFlashlight()
     -- Create the spotlight under the part
     local spotlight = Instance.new("SpotLight")
     spotlight.Parent = part
-    spotlight.Brightness = 10
-    spotlight.Range = 50
+    spotlight.Brightness = 5
+    spotlight.Range = 70
     spotlight.Angle = 50
     spotlight.Color = Color3.fromRGB(255, 255, 255)
     spotlight.ConeHeight = 30
@@ -25,9 +25,7 @@ local function createFlashlight()
 
     -- Update the part and spotlight position every frame to follow the camera
     local function moveFlashlight()
-        part.Position = camera.CFrame.Position - Vector3.new(0, 2, 0)  -- Keep part below camera
-        spotlight.Position = part.Position  -- Keep the spotlight at the same position as the part
-        spotlight.CFrame = CFrame.new(part.Position, camera.CFrame.Position)  -- Spotlight direction towards the camera
+        part.CFrame = camera.CFrame - Vector3.new(0, 2, 0)  -- Keep part below camera
     end
     
     RunService.Heartbeat:Connect(moveFlashlight)
